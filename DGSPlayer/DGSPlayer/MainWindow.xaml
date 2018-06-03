@@ -43,9 +43,6 @@
         </Canvas>
         <StackPanel Margin="10" Grid.Row="2">
             <d3:Chart Name="plotter" Height="200">
-                <d3:Chart.Title>
-                    <TextBlock HorizontalAlignment="Center" FontSize="18" Margin="0,5,0,5">Line graph legend sample</TextBlock>
-                </d3:Chart.Title>
                 <d3:Chart.LegendContent>
                     <d3:LegendItemsPanel>
                         <d3:LegendItemsPanel.Resources>
