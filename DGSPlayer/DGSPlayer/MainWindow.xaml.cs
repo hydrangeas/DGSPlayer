@@ -1,19 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms.DataVisualization.Charting;
-using System.Windows.Forms.Integration;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using InteractiveDataDisplay.WPF;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 
@@ -34,35 +24,31 @@ namespace DGSPlayer
         }
         private void setChartControl()
         {
-            var windowsFormsHost = grid.FindName("WindowsFormsHost1") as WindowsFormsHost;
-            //windowsFormsHost.Background = Brushes.Red;
-            //windowsFormsHost.Opacity = 0;
+            double[] x = new double[200];
+            for (int i = 0; i < x.Length; i++)
+                x[i] = 3.1415 * i / (x.Length - 1);
 
-            var chart = windowsFormsHost.Child as Chart;
-            chart.BackColor = System.Drawing.Color.Transparent;
-
-            // ChartArea追加
-            chart.ChartAreas.Add("ChartArea1");
-            chart.ChartAreas[0].BackColor = System.Drawing.Color.Transparent;
-
-            // Seriesの作成と値の追加
-            Series seriesSin = new Series();
-            seriesSin.ChartType = SeriesChartType.Line;
-            seriesSin.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-
-            Series seriesCos = new Series();
-            seriesCos.ChartType = SeriesChartType.Line;
-            seriesCos.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-
-            for (double x = 0.0; x <= 2 * Math.PI; x = x + 0.1)
+            for (int i = 0; i < 25; i++)
             {
-                seriesSin.Points.AddXY(x, Math.Sin(x));
-                seriesCos.Points.AddXY(x, Math.Cos(x));
+                var lg = new LineGraph();
+                lines.Children.Add(lg);
+                lg.Stroke = new SolidColorBrush(Color.FromArgb(255, 0, (byte)(i * 10), 0));
+                lg.Description = String.Format("Data series {0}", i + 1);
+                lg.StrokeThickness = 2;
+                lg.Plot(x, x.Select(v => Math.Sin(v + i / 10.0)).ToArray());
             }
+        }
+    }
+    public class VisibilityToCheckedConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return ((Visibility)value) == Visibility.Visible;
+        }
 
-            chart.Series.Add(seriesSin);
-            chart.Series.Add(seriesCos);
-
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return ((bool)value) ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

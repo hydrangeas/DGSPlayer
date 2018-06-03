@@ -4,9 +4,15 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       xmlns:wfc="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+                      xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
                       xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                       Dialog:DialogParticipation.Register="{Binding}"
+                      xmlns:local="clr-namespace:DGSPlayer"
                       Title="DGS Player" Height="785" Width="660">
+
+    <controls:MetroWindow.Resources>
+        <local:VisibilityToCheckedConverter x:Key="VisibilityToCheckedConverter"/>
+    </controls:MetroWindow.Resources>
     <Grid Name="grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="45*"/>
@@ -35,11 +41,32 @@
                    Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}"
                    Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}" />
         </Canvas>
-        <StackPanel Margin="10" Grid.Row="2" >
+        <StackPanel Margin="10" Grid.Row="2">
+            <d3:Chart Name="plotter" Height="200">
+                <d3:Chart.Title>
+                    <TextBlock HorizontalAlignment="Center" FontSize="18" Margin="0,5,0,5">Line graph legend sample</TextBlock>
+                </d3:Chart.Title>
+                <d3:Chart.LegendContent>
+                    <d3:LegendItemsPanel>
+                        <d3:LegendItemsPanel.Resources>
+                            <DataTemplate x:Key="InteractiveDataDisplay.WPF.LineGraph">
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox IsChecked="{Binding Path=Visibility, Converter={StaticResource VisibilityToCheckedConverter}, Mode=TwoWay}"/>
+                                    <Line Width="15" Height="15" X1="0" Y1="0" X2="15" Y2="15" Stroke="{Binding Path=Stroke}" StrokeThickness="2"/>
+                                    <TextBlock Margin="5,0,0,0" Text="{Binding Path=Description}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </d3:LegendItemsPanel.Resources>
+                    </d3:LegendItemsPanel>
+                </d3:Chart.LegendContent>
+                <Grid Name="lines"/>
+            </d3:Chart>
+        </StackPanel>
+        <!--<StackPanel Margin="10" Grid.Row="2" >
             <Slider HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <WindowsFormsHost Name="WindowsFormsHost1">
                 <wfc:Chart Name="Chart1"/>
             </WindowsFormsHost>
-        </StackPanel>
+        </StackPanel>-->
     </Grid>
 </controls:MetroWindow>
