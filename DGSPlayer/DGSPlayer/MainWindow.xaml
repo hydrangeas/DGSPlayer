@@ -1,0 +1,45 @@
+﻿<controls:MetroWindow x:Class="DGSPlayer.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:wfc="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+                      xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                      Dialog:DialogParticipation.Register="{Binding}"
+                      Title="DGS Player" Height="785" Width="660">
+    <Grid Name="grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45*"/>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="200*"/>
+        </Grid.RowDefinitions>
+        <WrapPanel Margin="10" Grid.Row="0">
+            <Button Content="Open"
+                    Width="75"
+                    Command="{Binding StartCommand}"
+                    Margin="0,0,10,0"
+                    IsEnabled="{Binding Path=IsProcessing}"/>
+            <Button Content="Capture"
+                    Width="75"
+                    Command="{Binding StopCommand}"
+                    Margin="0,0,10,0"
+                    IsEnabled="{Binding Path=IsEnableCapture}"/>
+            <Button Content="Open"
+                    Width="75"
+                    Command="{Binding OpenCommand}"
+                    Margin="0,0,10,0"
+                    IsEnabled="{Binding Path=IsProcessing}"/>
+        </WrapPanel>
+        <Canvas Grid.Row="1" Margin="10" Width="640">
+            <Image Source="{Binding Path=ImageSource}"
+                   Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}"
+                   Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}" />
+        </Canvas>
+        <StackPanel Margin="10" Grid.Row="2" >
+            <Slider HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <WindowsFormsHost Name="WindowsFormsHost1">
+                <wfc:Chart Name="Chart1"/>
+            </WindowsFormsHost>
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>
