@@ -42,7 +42,7 @@
                    Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}" />
         </Canvas>
         <StackPanel Margin="10" Grid.Row="2">
-            <d3:Chart Name="plotter" Height="200">
+            <d3:Chart Name="plotter" Height="200" LegendVisibility="Hidden">
                 <d3:Chart.LegendContent>
                     <d3:LegendItemsPanel>
                         <d3:LegendItemsPanel.Resources>
