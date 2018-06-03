@@ -62,11 +62,5 @@
                 <Grid Name="lines"/>
             </d3:Chart>
         </StackPanel>
-        <!--<StackPanel Margin="10" Grid.Row="2" >
-            <Slider HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <WindowsFormsHost Name="WindowsFormsHost1">
-                <wfc:Chart Name="Chart1"/>
-            </WindowsFormsHost>
-        </StackPanel>-->
     </Grid>
 </controls:MetroWindow>
