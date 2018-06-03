@@ -8,7 +8,7 @@
                       xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                       Dialog:DialogParticipation.Register="{Binding}"
                       xmlns:local="clr-namespace:DGSPlayer"
-                      Title="DGS Player" Height="785" Width="660">
+                      Title="DGS Player" Height="805" Width="660">
 
     <controls:MetroWindow.Resources>
         <local:VisibilityToCheckedConverter x:Key="VisibilityToCheckedConverter"/>
@@ -17,7 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="45*"/>
             <RowDefinition Height="500*"/>
-            <RowDefinition Height="200*"/>
+            <RowDefinition Height="220*"/>
         </Grid.RowDefinitions>
         <WrapPanel Margin="10" Grid.Row="0">
             <Button Content="Open"
@@ -41,8 +41,11 @@
                    Width="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelWidth}"
                    Height="{Binding RelativeSource={RelativeSource Self}, Path=Source.PixelHeight}" />
         </Canvas>
-        <StackPanel Margin="10" Grid.Row="2">
-            <d3:Chart Name="plotter" Height="200" LegendVisibility="Hidden">
+        <StackPanel Margin="10" Grid.Row="2" Height="200" Width="640">
+            <!--スライダーの横幅、Left位置は目検で調整-->
+            <Slider Height="20" Width="610" Margin="30,0,0,0"/>
+
+            <d3:Chart Name="plotter" Height="200" Width="640" LegendVisibility="Hidden" IsHorizontalNavigationEnabled="False">
                 <d3:Chart.LegendContent>
                     <d3:LegendItemsPanel>
                         <d3:LegendItemsPanel.Resources>
